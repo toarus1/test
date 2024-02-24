@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英単語テスト</title>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+
+  #container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  #question {
+    margin-bottom: 10px;
+  }
+
+  #answer-area {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #answer {
+    width: 50%;
+    padding: 5px;
+  }
+
+  #result {
+    font-weight: bold;
+    color: #000;
+  }
+
+  #buttons {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>英単語テスト Section 1</h1>
+    <p id="question"></p>
+    <div id="answer-area">
+      <input type="text" id="answer">
+      <p id="result"></p>
+    </div>
+    <div id="buttons">
+      <button id="check-answer">答えを確認</button>
+      <button id="next-question">次の問題へ</button>
+    </div>
+  </div>
+  <script>
+  const questions = [
+    {question: "「create」",
+      answer: "創り出す"
+    },
+    {
+      question: "「increase」",
+      answer: "増加する"
+    },
+    {
+      question: "「improve」",
+      answer: "向上させる"
+    },
+    {
+      question: "「mean」",
+      answer: "意味する"
+    },
+    {
+      question: "「own」",
+      answer: "所有している"
+    },{
+      question: "「include」",
+      answer: "含む"
+    },{
+      question: "「consider」",
+      answer: "見なす"
+    },{
+      question: "「allow」",
+      answer: "許す"
+    },{
+      question: "「suggest」",
+      answer: "提案する"
+    },{
+      question: "「produce」",
+      answer: "生産する"
+    },{
+      question: "「decide」",
+      answer: "決める"
+    },{
+      question: "「offer」",
+      answer: "提供する、申し出る"
+    },{
+      question: "「require」",
+      answer: "要求する"
+    },{
+      question: "「share」",
+      answer: "共有する"
+    },{
+      question: "「store」",
+      answer: "保存する"
+    },{
+      question: "「tend」",
+      answer: "傾向がある"
+    },{
+      question: "「concern」",
+      answer: "心配している"
+    },{
+      question: "「describe」",
+      answer: "述べる、説明する"
+    },{
+      question: "「involve」",
+      answer: "関与させる"
+    },{
+      question: "「reduce」",
+      answer: "減らす"
+    },{
+      question: "「design」",
+      answer: "設計する"
+    },{
+      question: "「force」",
+      answer: "強いる"
+    },{
+      question: "「limit」",
+      answer: "制限[規制]する"
+    },{
+      question: "「bear」",
+      answer: "耐える"
+    },{
+      question: "「affect」",
+      answer: "影響を及ぼす"
+    },{
+      question: "「deal」",
+      answer: "処理する"
+    },{
+      question: "「avoid」",
+      answer: "避ける"
+    },{
+      question: "「relate」",
+      answer: "関連づける"
+    },{
+      question: "「realize」",
+      answer: "気づく"
+    },{
+      question: "「encourage」",
+      answer: "奨励する"
+    },{
+      question: "「compare」",
+      answer: "比較する"
+    },{
+      question: "「measure」",
+      answer: "測る"
+    },{
+      question: "「exist」",
+      answer: "存在する"
+    },{
+      question: "「mark」",
+      answer: "印をつける"
+    },{
+      question: "「challenge」",
+      answer: "意義を唱える"
+    },{
+      question: "「depend」",
+      answer: "頼る"
+    },
+    {
+      question: "「object」",
+      answer: "反対する"
+    },
+    {
+      question: "「demand」",
+      answer: "要求する"
+    }, {
+      question: "「found」",
+      answer: "設立する"
+    }, {
+      question: "「complete」",
+      answer: "完成させる、仕上げる"
+    }, {
+      question: "「idea」",
+      answer: "考え、思い付き"
+    }, {
+      question: "「accord」",
+      answer: "一致"
+    }, {
+      question: "「company」",
+      answer: "会社"
+    }, {
+      question: "「interest」",
+      answer: "興味"
+    }, {
+      question: "「research」",
+      answer: "研究、調査"
+    }, {
+      question: "「cause」",
+      answer: "原因"
+    }, {
+      question: "「reason」",
+      answer: "理由"
+    }, {
+      question: "「effect」",
+      answer: "影響、効果"
+    }, {
+      question: "「influence」",
+      answer: "影響(力)"
+    }, {
+      question: "「situation」",
+      answer: "状況"
+    }, {
+      question: "「environment」",
+      answer: "環境"
+    }, {
+      question: "「skill」",
+      answer: "技能"
+    }, {
+      question: "「matter」",
+      answer: "事柄"
+    }, {
+      question: "「view」",
+      answer: "見解"
+    }, {
+      question: "「value」",
+      answer: "価値"
+    }, {
+      question: "「species」",
+      answer: "(生物の)種"
+    }, {
+      question: "「thought」",
+      answer: "考え"
+    }, {
+      question: "「knowledge」",
+      answer: "知識"
+    }, {
+      question: "「memory」",
+      answer: "記憶(力)"
+    }, {
+      question: "「practice」",
+      answer: "実践、実行"
+    }, {
+      question: "「benefit」",
+      answer: "利益、恩恵"
+    }, {
+      question: "「theory」",
+      answer: "学説"
+    }, {
+      question: "「issue」",
+      answer: "問題(点)"
+    }, {
+      question: "「experiment」",
+      answer: "実験"
+    }, {
+      question: "「article」",
+      answer: "記事"
+    }, {
+      question: "「focus」",
+      answer: "焦点"
+    }, {
+      question: "「subject」",
+      answer: "話題"
+    }, {
+      question: "「project」",
+      answer: "計画"
+    }, {
+      question: "「quality」",
+      answer: "質"
+    }, {
+      question: "「role」",
+      answer: "役割"
+    }, {
+      question: "「term」",
+      answer: "(専門)用語"
+    }, {
+      question: "「statement」",
+      answer: "声明"
+    }, {
+      question: "「material」",
+      answer: "材料、素材"
+    }, {
+      question: "「evidence」",
+      answer: "証拠"
+    }, {
+      question: "「source」",
+      answer: "源、根源"
+    }, {
+      question: "「community」",
+      answer: "(共同)社会、～界"
+    }, {
+      question: "「technology」",
+      answer: "科学技術"
+    }, {
+      question: "「culture」",
+      answer: "文化"
+    }, {
+      question: "「appropriate」",
+      answer: "適切な"
+    }, {
+      question: "「likely」",
+      answer: "ありそうな"
+    }, {
+      question: "「possible」",
+      answer: "可能な"
+    }, {
+      question: "「individual」",
+      answer: "個々の"
+    }, {
+      question: "「public」",
+      answer: "公の"
+    }, {
+      question: "「common」",
+      answer: "共通の"
+    }, {
+      question: "「certain」",
+      answer: "確信して"
+    }, {
+      question: "「similar」",
+      answer: "似ている、類似した"
+    }, {
+      question: "「recent」",
+      answer: "最近の"
+    }, {
+      question: "「major」",
+      answer: "主要な；大きい(ほうの)"
+    }, {
+      question: "「patient」",
+      answer: "忍耐強い"
+    }, {
+      question: "「particular」",
+      answer: "特定の"
+    }, {
+      question: "「physical」",
+      answer: "身体の"
+    }, {
+      question: "「various」",
+      answer: "さまざまな"
+    }, {
+      question: "「available」",
+      answer: "手に入る"
+    }, {
+      question: "「native」",
+      answer: "出生地の"
+    }, {
+      question: "「political」",
+      answer: "政治(上)の"
+    }, {
+      question: "「due」",
+      answer: "予定された"
+    }, {
+      question: "「blank」",
+      answer: "空白"
+    }, {
+      question: "「ancient」",
+      answer: "古代の"
+    }, {
+      question: "「correct」",
+      answer: "正しい"
+    }, {
+      question: "「despite」",
+      answer: "にもかかわらず"
+    }, 
+  ];
+
+  const questionElement = document.getElementById("question");
+  const answerElement = document.getElementById("answer");
+  const resultElement = document.getElementById("result");
+  const checkAnswerButton = document.getElementById("check-answer");
+  const nextQuestionButton = document.getElementById("next-question");
+
+  let usedQuestionIndexes = [];
+
+  function showQuestion() {
+    if (usedQuestionIndexes.length === questions.length) {
+      alert("テスト終了です！");
+      return;
+    }
+
+    let questionIndex;
+    do {
+      questionIndex = Math.floor(Math.random() * questions.length);
+    } while (usedQuestionIndexes.includes(questionIndex));
+
+    usedQuestionIndexes.push(questionIndex);
+
+    const question = questions[questionIndex];
+    questionElement.textContent = question.question;
+    answerElement.value = "";
+  }
+
+  function checkAnswer() {
+    const correctAnswer = questions[usedQuestionIndexes[usedQuestionIndexes.length - 1]].answer;
+    resultElement.textContent = "正解は「" + correctAnswer + "」";
+  }
+
+  function nextQuestion() {
+    showQuestion();
+  }
+
+  showQuestion();
+
+  checkAnswerButton.addEventListener("click", checkAnswer);
+  nextQuestionButton.addEventListener("click", nextQuestion);
+  </script>
+</body>
+</html>
